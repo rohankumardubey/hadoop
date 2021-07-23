@@ -35,6 +35,7 @@ import org.apache.hadoop.hdfs.server.namenode.snapshot.Snapshot;
 import org.apache.hadoop.security.AccessControlException;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import static org.apache.hadoop.util.Time.now;
 
@@ -146,7 +147,8 @@ class FSDirMkdirOp {
         existing = createSingleDirectory(fsd, existing, component, perm);
         if(existing == null) {
           FSNamesystem.LOG.error("unprotectedMkdir returned null for "
-              + iip.getPath() + " for " + new String(component) + " i = " + i);
+              + iip.getPath() + " for "
+              + Arrays.toString(component) + " i = " + i);
           // Somebody already created the parent. Recalculate existing
           existing = INodesInPath.resolve(fsd.getRoot(), iip.getPathComponents());
           i = existing.length() - 1;
